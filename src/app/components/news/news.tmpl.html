@@ -1,0 +1,84 @@
+<!--        <script type="text/ng-template" src="../login/staffers.tmpl.html"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="//code.angularjs.org/snapshot/angular.min.js"></script>
+    <script src="//code.angularjs.org/snapshot/angular-animate.js"></script>
+    <script src="script.js"></script>-->
+<!--<script src="lib/angular/angular-sanitize.min.js"></script>-->
+
+
+<aside id="aside">
+    <div class="logo">
+        <img class="icon" ng-src="{{logo}}"/>
+    </div>
+    <p class="title">Phone Book</p>
+    <nav>
+        <ul>
+            <li data-state="users"><a ui-sref="users"><span>Users</span></a></li>
+            <li data-state="news"><a ui-sref="news"><span>News</span></a></li>
+        </ul>
+    </nav>
+</aside>
+
+<header>
+    <button class="menu-trigger" ng-click="menutexp()">
+        <img class="icon" ng-src="{{menu}}"/>
+    </button>
+    <ul class="actions">
+        <li>
+            <a ui-sref="profile({param: 0})">
+                <!-- <svg class="icon">
+                    <use xlink:href="#user"></use>
+                </svg> -->
+                <img class="img-wg" ng-src={{url(staffer.photoUrl)}} alt="Description" />
+            </a>
+        </li>
+        <li class="logout">
+            <a ng-click="logout()">
+                <img class="icon" ng-src="{{logoutIcon}}"/>
+            </a>
+        </li>
+    </ul>
+</header>
+
+<div class="maincontainer">
+    <div class="content" infinite-scroll="addMoreNews()">
+        <div class="head">
+            <h1 class="page-title">News</h1>
+            <a ui-sref="edit({param:0})" class="button transparent">Add News</a>
+            <div class="form-group inside">
+                <input type="text" style="background-color: #cccccc" name="search" placeholder="Search…" ng-model="searchKeyWord" >
+                <button class="button">
+                    <svg class="icon">
+                        <use xlink:href="#search"></use>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        Daily news <input type="radio" name="news" value="daily" ng-click="switchToDaily()">
+        <input type="radio" name="news" value="important" checked="checked" ng-click="switchToImportant()">Important news<Br>
+        <div class="news-article" ng-repeat="t in news | filter: searchKeyWord">
+            <span class="date">{{t.date_time|date:'MMMM d, yyyy'}}</span>
+            <h2>{{t.header}}</h2>
+            <article ng-class="expand">
+                <text ng-bind-html="trustAsHtml(t.content)"></text>
+                <button class="expand" ng-show="expand!='expanded'?t.content.length>300:false" ng-click="expand = 'expanded'"><span>Expand</span></button>
+            </article>
+            <div class="article-actions" ng-show="isAdmin()">
+                <a class="action" ng-click="deleteStory(t.id)">
+                    <img class="icon" ng-src="{{delicon}}" >
+                    </img>
+                </a>
+                <button class="action" ui-sref="edit({param:{{t.id}}})"><!--ng-click="$location.path('/newsEdit')"-->
+                    <img class="icon" ng-src="{{edit}}">
+                    </img>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-overlay" id="pageover" ng-click="pageexp()">
+    <button class="close">
+        <img class="icon" ng-src="{{close}}"/>
+    </button>
+</div>

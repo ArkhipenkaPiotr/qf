@@ -1,0 +1,79 @@
+<!--        <script type="text/ng-template" src="../login/staffers.tmpl.html"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="//code.angularjs.org/snapshot/angular.min.js"></script>
+    <script src="//code.angularjs.org/snapshot/angular-animate.js"></script>
+    <script src="script.js"></script>-->
+<!--<script src="lib/angular/angular-sanitize.min.js"></script>-->
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.css">
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.js"></script>
+<script src="/node_modules/angular-trix/dist/angular-trix.min.js"></script>
+
+
+
+<aside id="aside">
+    <div class="logo">
+        <img class="icon" ng-src="{{logo}}"/>
+    </div>
+    <p class="title">Phone Book</p>
+    <nav>
+        <ul>
+            <li data-state="users"><a ui-sref="users"><span>Users</span></a></li>
+            <li data-state="news"><a ui-sref="news"><span>News</span></a></li>
+        </ul>
+    </nav>
+</aside>
+
+<header>
+    <button class="menu-trigger" ng-click="menutexp()">
+        <img class="icon" ng-src="{{menu}}"/>
+    </button>
+    <ul class="actions">
+        <li>
+            <a ui-sref="profile({param: 0})">
+                <!-- <svg class="icon">
+                    <use xlink:href="#user"></use>
+                </svg> -->
+                <img class="img-wg" ng-src={{url(staffer.photoUrl)}} alt="Description" />
+            </a>
+        </li>
+        <li class="logout">
+            <a ng-click="logout()">
+                <img class="icon" ng-src="{{logoutIcon}}"/>
+            </a>
+        </li>
+    </ul>
+</header>
+
+
+<div class="maincontainer">
+    <div class="content">
+        <div class="head">
+            <h1 class="page-title">Editing News</h1>
+        </div>
+        <div class="edit-news">
+            <div class="form-group title">
+                <label for="title">Title</label>
+                <input id="title" type="text" name="title" ng-model="story.header">
+            </div>
+            <div class="form-group category">
+                <label for="category">category</label>
+                <input id="category" type="text" name="category" ng-model="story.category">
+            </div>
+            <textarea ng-model="story.content">
+            </textarea>
+            <div class="form-group actions">
+                <button class="button save" ng-click="save()">Save</button>
+                <button class="button cancel" ui-sref="news">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-overlay" id="pageover" ng-click="pageexp()">
+    <button class="close">
+        <img class="icon" ng-src="{{close}}"/>
+    </button>
+</div>

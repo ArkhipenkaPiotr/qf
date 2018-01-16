@@ -1,0 +1,115 @@
+<!--        <script type="text/ng-template" src="../login/edit.tmpl.html"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="//code.angularjs.org/snapshot/angular.min.js"></script>
+    <script src="//code.angularjs.org/snapshot/angular-animate.js"></script>
+    <script src="script.js"></script>-->
+
+<aside id="aside">
+    <div class="logo">
+        <img class="icon" ng-src="{{logo}}"/>
+    </div>
+    <p class="title">Phone Book</p>
+    <nav>
+        <ul>
+            <li data-state="users"><a ui-sref="users"><span>Users</span></a></li>
+            <li data-state="news"><a ui-sref="news"><span>News</span></a></li>
+        </ul>
+    </nav>
+</aside>
+
+<header>
+    <button class="menu-trigger" ng-click="menutexp()">
+        <img class="icon" ng-src="{{menu}}"/>
+    </button>
+    <ul class="actions">
+        <li>
+            <a ui-sref="profile({param: 0})">
+                <!-- <svg class="icon">
+                    <use xlink:href="#user"></use>
+                </svg> -->
+                <img class="img-wg" ng-src={{url(staffer.photoUrl)}} alt="Description" />
+            </a>
+        </li>
+        <li class="logout">
+            <a ng-click="logout()">
+                <img class="icon" ng-src="{{logoutIcon}}"/>
+            </a>
+        </li>
+    </ul>
+</header>
+
+<div class="maincontainer">
+    <div class="content">
+        <div class="head">
+            <h1 class="page-title">Users</h1>
+            <div class="form-group inside">
+                    <input type="text" style="background-color: #cccccc" style="border-color: #cccccc" name="search" placeholder="Search…" ng-model="searchKeyWord" >
+                <button class="button">
+                    <svg class="icon">
+                        <use xlink:href="#search"></use>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <table class="table hover users responsive">
+            <thead>
+            <tr>
+                <th class="name">
+                    Name
+                </th>
+                <th class="position">
+                    Position
+                </th>
+                <th class="phone">
+                    Phone
+                </th>
+                <th class="email">
+                    Email
+                </th>
+                <th class="skype">
+                    Skype
+                </th>
+                <th class="room">
+                    Room
+                </th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="t in users | filter: searchKeyWord">
+                <tr>
+                    <td class="name">
+                        <a class="thumb" ui-sref="profile({param:{{t.id}}})">
+                            <div class="image">
+                                <img ng-src="{{url(t.photoUrl)}}">
+                            </div>
+                            <span>{{t.firstName+" "+t.lastName}}</span>
+                        </a>
+                        <span class=smallLaptopScreen-visible"> {{t.position}}</span>
+                    </td>
+                    <td class="position">{{t.position}}</td>
+                    <td class="phone">
+                        <span class="caption" >Phone</span>
+                        <a href="tel:{{t.address.phone;}}">{{t.address.phone}}</a>
+                    </td>
+                    <td class="mail">
+                        <span class="caption">Email</span>
+                        <a href="mailto:{{t.address.eMail}}">{{t.address.eMail}}</a>
+                    </td>
+                    <td class="skype">
+                        <span class="caption">Skype</span>
+                        <a href="tel:{{t.address.skype}}">{{t.address.skype}}</a>
+                    </td>
+                    <td class="room">
+                        <span class="caption">Room</span>
+                        {{t.address.room}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="page-overlay" id="pageover" ng-click="pageexp()">
+    <button class="close">
+        <img class="icon" ng-src="{{close}}"/>
+    </button>
+</div>

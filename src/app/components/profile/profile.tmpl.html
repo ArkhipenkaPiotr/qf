@@ -1,0 +1,177 @@
+<!--
+
+<aside id="aside">
+    <div class="logo">
+        <img class="icon" ng-src="{{logo}}"/>
+    </div>
+    <p class="title">Phone Book</p>
+    <nav>
+        <ul>
+            <li data-state="staffers"><a ui-sref="#!/staffers"><span>Users</span></a></li>
+            <li data-state="news"><a ui-sref="/#!/news"><span>News</span></a></li>
+        </ul>
+    </nav>
+</aside>
+
+<header>
+    <button class="menu-trigger" ng-click="menutexp()">
+        <img class="icon" ng-src="{{menu}}"/>
+    </button>
+    <ul class="actions">
+        <li>
+            <a href="user.html">
+                &lt;!&ndash; <svg class="icon">
+                    <use xlink:href="#user"></use>
+                </svg> &ndash;&gt;
+                <img class="img-wg" ng-src={{staffer.photoUrl}} alt="Description" />
+            </a>
+        </li>
+        <li class="logout">
+            <a ui-sref="index.html">
+                <img class="icon" ng-src="{{logout}}"/>
+            </a>
+        </li>
+    </ul>
+</header>-->
+<!--        <script type="text/ng-template" src="../login/newsEdit.tmpl.html"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="//code.angularjs.org/snapshot/angular.min.js"></script>
+    <script src="//code.angularjs.org/snapshot/angular-animate.js"></script>
+    <script src="script.js"></script>-->
+
+<aside id="aside">
+    <div class="logo">
+        <img class="icon" ng-src="{{logo}}"/>
+    </div>
+    <p class="title">Phone Book</p>
+    <nav>
+        <ul>
+            <li data-state="users"><a ui-sref="users"><span>Users</span></a></li>
+            <li data-state="news"><a ui-sref="news"><span>News</span></a></li>
+        </ul>
+    </nav>
+</aside>
+
+<header>
+    <button class="menu-trigger" ng-click="menutexp()">
+        <img class="icon" ng-src="{{menu}}"/>
+    </button>
+    <ul class="actions">
+        <li>
+            <a ui-sref="profile({param: 0})">
+                <!-- <svg class="icon">
+                    <use xlink:href="#user"></use>
+                </svg> -->
+                <img class="img-wg" ng-src={{url(staffer.photoUrl)}} alt="Description" />
+            </a>
+        </li>
+        <li class="logout" >
+            <a ng-click="logout()">
+                <img class="icon" ng-src="{{logoutIcon}}"/>
+            </a>
+        </li>
+    </ul>
+</header>
+
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+</div>
+<div class="maincontainer">
+    <div class="content">
+        <div class="head">
+            <h1 class="page-title">View User</h1>
+        </div>
+        <div class="user-view">
+            <h2 ng-show="!isAdmin()">{{profile.firstName + " " +profile.lastName}}</h2>
+            <input style=" width: 10%" ng-show="isAdmin()" ng-model="profile.firstName">
+            <input style="width: 10%" ng-show="isAdmin()" ng-model="profile.lastName">
+            <p ng-show="!isAdmin()">{{profile.position}}</p>
+            <input style="width: 10%" ng-show="isAdmin()" ng-model="profile.position">
+
+            <div class="image">
+                <div class="picture">
+                    <img ng-src="{{url(profile.photoUrl)}}" alt="Empl Photo">
+                </div>
+                <label>Set avatar</label>
+                <input ng-upload="onFileSelect($file)" type="file" accept=".jpg, .jpeg, .png">
+                <label class="error" ng-show="imgfile.size>5242880">Image size must be less than 5 MB</label>
+                <div>
+                    <button ng-click="saveImg()">Save image</button>
+                </div>
+            </div>
+            <div class="info">
+                <div class="form-group">
+                    <label>Email</label>
+                    <p>
+                        <a ng-show="!isAdmin()" href="mailto:{{address.eMail}}">
+                            {{address.eMail}}
+                        </a>
+                        <input style="background: ghostwhite" ng-show="isAdmin()" ng-model="address.eMail">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>Skype</label>
+                    <p>
+                        <a ng-show="!isAdmin()" href="tel:{{address.skype}}">{{address.skype}}</a>
+                        <input ng-show="isAdmin()" ng-model="address.skype">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <p>
+                        <a ng-show="!isAdmin()" href="tel:{{address.phone}}">{{address.phone}}</a>
+                        <input ng-show="isAdmin()" ng-model="address.phone">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>Room</label>
+                    <p ng-show="!isAdmin()">{{address.room}}</p>
+                    <p>
+                        <input ng-show="isAdmin()" ng-model="address.room">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>Date of Birth</label>
+                    <p ng-show="!isAdmin()">{{profile.dateOfBirth.dateTime.date.day+'.'+profile.dateOfBirth.dateTime.date.month+'.'+profile.dateOfBirth.dateTime.date.year}}</p>
+                    <p>
+                        <input style="width: 15%; text-align: center" ng-show="isAdmin()" ng-model="profile.dateOfBirth.dateTime.date.day">
+                        <input style="width: 15%; text-align: center" ng-show="isAdmin()" ng-model="profile.dateOfBirth.dateTime.date.month">
+                        <input style="width: 20%; text-align: center" ng-show="isAdmin()" ng-model="profile.dateOfBirth.dateTime.date.year">
+                <div class="form-group">
+                    <label>Projects</label>
+                    <input type="text" ng-show="isAdmin()" ng-model="newProject">
+                    <button ng-show="isAdmin()" ng-click="saveProject(newProject)">Save project</button>
+                    <ul ng-repeat="t in projects">
+                        <li>
+                            {{t.name}}
+                            <button ng-show="isAdmin()" ng-click="deleteProject(t.id)">
+                                Delete project
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <button ng-show="isAdmin()" ng-click="postChanges()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-overlay">
+    <button class="close">
+        <svg class="icon">
+            <use xlink:href="#close"></use>
+        </svg>
+    </button>
+</div>
+<div class="page-overlay">
+    <button class="close">
+        <svg class="icon">
+            <use xlink:href="#close"></use>
+        </svg>
+    </button>
+</div>
+
+<div class="page-overlay" id="pageover" ng-click="pageexp()">
+    <button class="close">
+        <img class="icon" ng-src="{{close}}"/>
+    </button>
+</div>
